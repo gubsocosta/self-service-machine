@@ -69,7 +69,19 @@ const SelfServiceMachine = {
     return {
       products: window.products
     };
-  }
+  },
+  methods: {
+    total: () => {
+      return this.products
+        .reduce((carry, product) => {
+          if (!product.active) {
+            return carry;
+          }
+
+          return carry + (product.price * product.quantity)
+        }, 0).toFixed(2);
+    }
+  },
 };
 
 Vue.createApp(SelfServiceMachine).mount('#app');
